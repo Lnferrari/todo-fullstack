@@ -1,6 +1,6 @@
 <h1 align='center'>toDo Fullstack</h1>
 </br>
-<p>YouTube clone is a replica made by me from scratch of the well known online video sharing and social networking platform. </p>
+<p></p>
 </br>
 
 
@@ -39,7 +39,7 @@
 <p>This project was built with the aim to challenge myself, to keep practicing and learning by doing.
 It contains the same basic functions as the original site, such as searching for videos, playing them or adding them to the <i>WatchLater</i> list. It is also possible to like videos, adding them to the <i>LikedVideos</i> list, as well as to subscribe to channels.</p>
 
-![YouTube clone Screen Shot][main page]
+<!-- ![todo Screen Shot][main page] -->
 
 ### Built With
 
@@ -138,7 +138,7 @@ Distributed under the MIT License.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[main page]: ./assets/youtube-screenshot.png
+[main page]: 
 [issues]: https://github.com/Lnferrari/todo-fullstack/issues
 [todo project]: https://github.com/Lnferrari/todo-fullstack
 [linkedin]: https://www.linkedin.com/in/lucasferrari1/
