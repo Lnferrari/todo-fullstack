@@ -138,7 +138,6 @@ Distributed under the MIT License.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[main page]: 
 [issues]: https://github.com/Lnferrari/todo-fullstack/issues
 [todo project]: https://github.com/Lnferrari/todo-fullstack
-[linkedin]: https://www.linkedin.com/in/lucasferrari1/
+[linkedin]: https://www.linkedin.com/in/lucasferrari1/ 
