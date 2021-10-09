@@ -9,4 +9,4 @@ mongoose.connect(MONGO_URI, {
   useCreateIndex: true
 })
 .then(() => console.log(`Connection to DB established`))
-.catch(err => console.log(`[ERROR] We can not connect to DB => ${err}`)
+.catch(err => console.log(`[ERROR] We can not connect to DB => ${err}`))
