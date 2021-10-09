@@ -1,4 +1,3 @@
-# todo-fullstack
 <h1 align='center'>toDo Fullstack</h1>
 </br>
 <p>YouTube clone is a replica made by me from scratch of the well known online video sharing and social networking platform. </p>
