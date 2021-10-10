@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+form {
+  width: fit-content;
+}
+
 .input-container {
   margin: 10px 0;
 }

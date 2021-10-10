@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { FormControl } from '@mui/material';
 
 const initialState = {
   email: '',
@@ -84,12 +85,12 @@ const Form = ({formType}) => {
   }
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 4 }}>
+    <Box component="form" fullWidth onSubmit={handleSubmit} sx={{ mt: 4 }}>
       <Grid container spacing={2}>
         {
           formType === 'signup'
           ? <>
-            <Grid item xs={12}>
+            <FormControl fullWidth sx={{ m: 1 }} variant="standard">
               <label htmlFor="avatar">
                 <img src={inputs.avatar || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar" className='form-avatar' />
                   {!inputs.avatar && <p className='italic'>Choose an avatar</p>}
@@ -97,19 +98,18 @@ const Form = ({formType}) => {
               <input type="file" accept='image/*' name="avatar" id="avatar"
               className='hidden'
               onChange={fileHandler}/>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </FormControl>
               <TextField
                 required
                 fullWidth
                 autoFocus
+                sx={{ m: 1, width: '21ch' }}
                 variant='standard'
-                name="firsname"
+                name="firstname"
                 label='First Name'
                 onChange={handleInput}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            <FormControl sx={{ m: 1, width: '21ch' }}>
               <TextField
                 required
                 fullWidth
@@ -118,16 +118,19 @@ const Form = ({formType}) => {
                 label='Last Name'
                 onChange={handleInput}
               />
-            </Grid>
+            </FormControl>
             </>
-          : <Grid item xs={12}>
+          : <FormControl fullWidth sx={{ m: 1 }} variant="standard">
               <img src={'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar"
               className='form-avatar'/>
-            </Grid>
+            </FormControl>
         }
 
-        <Grid item xs={12}>
-          <TextField
+        <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+          <InputLabel htmlFor='email'>
+            Email *
+          </InputLabel>
+          <Input
             required
             fullWidth
             variant='standard'
@@ -136,10 +139,13 @@ const Form = ({formType}) => {
             label='Email'
             onChange={handleInput}
           />
-        </Grid>
+        </FormControl>
 
-        <Grid item xs={12}>
-          <TextField
+        <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+          <InputLabel htmlFor='password'>
+            Password *
+          </InputLabel>
+          <Input
             required
             fullWidth
             variant='standard'
@@ -160,10 +166,10 @@ const Form = ({formType}) => {
               </InputAdornment>
             }
           />
-        </Grid>
+        </FormControl>
 
         <Button
-          type="submit"
+          type='submit'
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
