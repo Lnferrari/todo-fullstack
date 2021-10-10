@@ -18,7 +18,11 @@ router.route('/:id')
   .delete(deleteUser)
 
 router.route('/:id/todos')
-  .get(getTodos)
+  .get(getAllTodos)
 
+router.route('/:id/todos/:todoId')
+  .get(getTodo)
+  .patch(updateTodo)
+  .delete(deleteTodo)
 
 export default router;
