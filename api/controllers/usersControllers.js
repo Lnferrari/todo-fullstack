@@ -1,5 +1,6 @@
 import createError from 'http-errors'
 import User from '../models/User.js'
+import cloudinary from 'cloudinary'
 
 
 export const getAllUsers = async (req, res, next) => {
@@ -13,7 +14,20 @@ export const getAllUsers = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
   try {
-    const newUser = await User.create(req.body)
+    const { avatar, ...userData } = req.body
+    // uploading image on cloudinary
+    const uploadResponse = await cloudinary.v2.uploader.upload(avatar, {
+      overwrite: true,
+      invalidate: true,
+      width: 600, height: 400, crop: "fill"
+    })
+    if (uploadResponse.error) {
+      return new Error(`Ups! Something went wrong`)
+    }
+    const newUser = await User.create({
+      ...userData,
+      avatar: uploadResponse.secure_url
+    })
     res.json(newUser)
   } catch (err) {
     next(err)
