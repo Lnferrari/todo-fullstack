@@ -19,6 +19,7 @@ router.route('/:id')
 
 router.route('/:id/todos')
   .get(getAllTodos)
+  .post(createTodo)
 
 router.route('/:id/todos/:todoId')
   .get(getTodo)
