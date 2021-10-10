@@ -21,8 +21,6 @@ const router = express.Router()
 
 router.route('/')
   .get(getAllUsers)
-
-router.route('/signup')
   .post(createUser)
 
 router.route('/login')

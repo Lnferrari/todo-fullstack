@@ -1,5 +1,6 @@
 import './db-connect.js'
 import express from 'express'
+import cors from 'cors'
 import usersRouter from './routes/usersRouter.js'
 
 
@@ -10,16 +11,18 @@ const PORT = 5000
 
 
 // EXPRESS MIDDLEWARE --------------------
-app.use( express.json() )
+app.use(express.json())
+app.use(cors())
 
 
 // END POINTS --------------------
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send({
     hello: 'TO DO FULLSTACK'
   })
 })
 
+// ROUTES ------------------------
 app.use('/users', usersRouter)
 
 app.use((req, res, next) => {
