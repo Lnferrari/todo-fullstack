@@ -1,23 +1,42 @@
 import React, { useState } from 'react'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import Button from '@mui/material/Button'
 import Form from '../components/Form'
 
 const Registration = () => {
   const [ formType, setFormType ] = useState('signup')
 
   return (
-    <section className='page-wrapper' id='registration'>
-      <div className="form-container">
-        <div className="buttons-container">
-          <button onClick={() => setFormType('signup')}>
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 12,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <ButtonGroup disableElevation>
+          <Button
+            fullWidth
+            variant={`${formType === 'signup' ? 'contained' : 'outlined'}`}
+            onClick={() => setFormType('signup')}
+          >
             Sign up
-          </button>
-          <button onClick={() => setFormType('login')}>
+          </Button>
+          <Button
+            fullWidth
+            variant={`${formType === 'signup' ? 'outlined' : 'contained'}`}
+            onClick={() => setFormType('login')}
+          >
             Log In
-          </button>
-        </div>
+          </Button>
+        </ButtonGroup>
         <Form formType={formType} />
-      </div>
-    </section>
+      </Box>
+    </Container>
   )
 }
 

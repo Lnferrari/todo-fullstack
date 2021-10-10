@@ -7,3 +7,26 @@
 .App {
   text-align: center;
 }
+
+.input-container {
+  margin: 10px 0;
+}
+
+.form-avatar {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.hidden {
+  display: none;
+}
+/* input {
+  outline: none;
+} */

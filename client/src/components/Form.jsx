@@ -2,6 +2,16 @@ import React, { useState } from 'react'
 import Resizer from "react-image-file-resizer";
 import { useHistory } from 'react-router';
 import { signupUser, loginUser } from '../helpers/apiCalls';
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const initialState = {
   email: '',
@@ -10,6 +20,7 @@ const initialState = {
 
 const Form = ({formType}) => {
   const [ inputs, setInputs ] = useState(initialState)
+  const [ showPassword, setShowPassword ] = useState(false)
 
   let history = useHistory()
 
@@ -45,6 +56,14 @@ const Form = ({formType}) => {
     })
   }
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     let userApi = {}
@@ -65,40 +84,95 @@ const Form = ({formType}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      {
-        formType === 'signup'
-        ? <>
-          <div className="input-container avatar">
-            <label htmlFor="avatar">
-              <img src={inputs.avatar || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar" />
-                {!inputs.avatar && <p>Choose an avatar</p>}
-              </label>
-            <input type="file" accept='image/*' name="avatar" id="avatar" onChange={fileHandler}/>
-          </div>
-          <div className="input-container">
-            <input type="text" name="firsname" placeholder='First Name' autoComplete='off' onChange={handleInput} required />
-            <input type="text" name="lastname" placeholder='Last Name' autoComplete='off' onChange={handleInput} required />
-          </div>
-          </>
-        : <div className="input-container">
-            <img src={'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar" />
-          </div>
-      }
+    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 4 }}>
+      <Grid container spacing={2}>
+        {
+          formType === 'signup'
+          ? <>
+            <Grid item xs={12}>
+              <label htmlFor="avatar">
+                <img src={inputs.avatar || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar" className='form-avatar' />
+                  {!inputs.avatar && <p className='italic'>Choose an avatar</p>}
+                </label>
+              <input type="file" accept='image/*' name="avatar" id="avatar"
+              className='hidden'
+              onChange={fileHandler}/>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                variant='standard'
+                name="firsname"
+                label='First Name'
+                onChange={handleInput}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                variant='standard'
+                name="lastname"
+                label='Last Name'
+                onChange={handleInput}
+              />
+            </Grid>
+            </>
+          : <Grid item xs={12}>
+              <img src={'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar"
+              className='form-avatar'/>
+            </Grid>
+        }
 
-      <div className="input-container">
-        <input type="email" name="email" placeholder='Email' autoComplete='off' onChange={handleInput} required />
-      </div>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            variant='standard'
+            id="email"
+            name="email"
+            label='Email'
+            onChange={handleInput}
+          />
+        </Grid>
 
-      <div className="input-container">
-        <input type="password" placeholder='Password' name="password" autoComplete='off' onChange={handleInput} required />
-      </div>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            variant='standard'
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            label='Password'
+            name="password"
+            onChange={handleInput}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </Grid>
 
-      <button type="submit">
-        ENTER
-      </button>
-
-    </form>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          color='success'
+        >
+          ENTER
+        </Button>
+      </Grid>
+    </Box>
   )
 }
 
