@@ -1,5 +1,6 @@
 import './db-connect.js'
 import express from 'express'
+import usersRouter from './routes/usersRouter.js'
 
 
 
@@ -19,8 +20,13 @@ app.use('/', (req, res) => {
   })
 })
 
+app.use('/users', usersRouter)
+
 app.use((req, res, next) => {
-  const error = new createError(400, `Looks like you are lost...`)
+  const error = new createError(
+    400,
+    `Looks like you are lost...`
+  )
   next(error)
 })
 

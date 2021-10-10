@@ -1,4 +1,20 @@
 import express from 'express'
+import {
+  getAllUsers,
+  createUser,
+  loginUser,
+  getUser,
+  updateUser,
+  deleteUser,
+} from '../controllers/usersControllers.js'
+
+import {
+  getAllTodos,
+  createTodo,
+  getTodo,
+  updateTodo,
+  deleteTodo
+} from '../controllers/todosControllers.js'
 
 
 const router = express.Router()
@@ -6,11 +22,11 @@ const router = express.Router()
 router.route('/')
   .get(getAllUsers)
 
-router.route('/login')
-  .post(loginUser)
-
 router.route('/signup')
   .post(createUser)
+
+router.route('/login')
+  .post(loginUser)
 
 router.route('/:id')
   .get(getUser)
