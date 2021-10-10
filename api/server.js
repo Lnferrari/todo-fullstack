@@ -1,15 +1,21 @@
 import './db-connect.js'
+import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import createError from 'http-errors'
 import usersRouter from './routes/usersRouter.js'
 
-
-
 const app = express()
 const PORT = 5000
 
-
+// CONFIG -------------------------
+dotenv.config()
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true
+})
 
 // EXPRESS MIDDLEWARE --------------------
 app.use(express.json())
