@@ -38,7 +38,6 @@ let usersCreated = [];
         firstname: faker.name.firstName(),
         lastname: faker.name.lastName(),
         email: faker.internet.email(),
-        username: faker.internet.userName(),
         password: 'Password123!'
       }
 
