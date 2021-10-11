@@ -10,13 +10,13 @@ const TodoSchema = new Schema({
   },
   title: {type: String, required: true},
   body: {type: String},
-  status: {type: Boolean, default: false},
   deadline: {type: Date},
   priority: {
     type: String,
     enum: ['None', 'Low', 'Medium', 'High'],
     default: 'None'
-  }
+  },
+  completed: {type: Boolean, default: false}
 },
 {
   timestamps: true,
