@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Calendar from 'react-calendar'
 import moment from 'moment'
-import { Button, Popover } from '@mui/material'
+import { Button, Grid, Popover, TextField, FormControl } from '@mui/material'
 import EventIcon from '@mui/icons-material/Event';
+import { Box } from '@mui/system'
 
 const initialState = {
   title: '',
@@ -14,7 +15,6 @@ const AddTodoForm = () => {
   const [ newTodo, setNewTodo ] = useState(initialState)
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const todos = useSelector(state => state)
   const dispatch = useDispatch()
 
 
@@ -41,38 +41,49 @@ const AddTodoForm = () => {
       ...newTodo,
       deadline: moment(e).format('L')
     })
+    setAnchorEl(null)
   }
 
   const handleSubmit = e => {
     e.preventDefault()
     dispatch({ type: 'ADD_TODO', payload: newTodo })
+    setNewTodo(initialState)
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="first-row">
-          <input onChange={handleChange} type="text" name="title" id="todo" value={newTodo.title} />
-          <Button aria-describedby={id} variant="outlined" onClick={handleClick}>
-            <EventIcon fontSize="small"/> Add Date
+    <Grid container fullWidth sx={{ marginX: 4, marginY: 2 }}>
+      <Box component='form' fullWidth onSubmit={handleSubmit}>
+        <Grid sx={{ display: 'flex', flexWrap: 'wrap' }}>
+          <TextField
+              type="text"
+              name="title"
+              fullWidth
+              label="Task..."
+              id="todo"
+              size='small'
+              sx={{ width: 500, bgcolor: 'white'}}
+              value={newTodo.title}
+              onChange={handleChange}
+          />
+          <Button  size='normal' aria-describedby={id} variant="contained" onClick={handleClick}>
+            {newTodo.deadline || <><EventIcon fontSize="small" sx={{ marginRight: 1 }}/> <span>Add Date</span></>}
           </Button>
           <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
           >
             <Calendar onChange={handleCalendar} className='calendar'/>
           </Popover>
-        </div>
-        <button type="submit">ADD</button>
-      </form>
-
-    </div>
+        </Grid>
+        <Button type="submit" variant='contained'>ADD TASK</Button>
+      </Box>
+    </Grid>
   )
 }
 
