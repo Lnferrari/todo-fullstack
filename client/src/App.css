@@ -43,3 +43,12 @@ form {
 .calendar {
   width: 260px;
 }
+
+.sidebar-num {
+  padding: 3px 6px;
+  font-size: 90%;
+  /* position: relative;
+  left: -25px; */
+  border-radius: 50px;
+  background-color: rgb(97, 97, 97);
+}
