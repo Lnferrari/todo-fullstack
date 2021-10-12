@@ -7,10 +7,25 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { grey, lightBlue, amber, deepOrange } from '@mui/material/colors';
 import moment from 'moment'
+import { useDispatch } from 'react-redux';
+import { deleteTodo, toggleTodo } from '../redux/todoSlice';
 
 
 const Todo = ({todo}) => {
   const { _id, priority, title, body, deadline, completed, createdAt } = todo
+  const dispatch = useDispatch()
+
+  const handleToggleTodo = () => {
+    dispatch(
+      toggleTodo({ _id, completed: !completed })
+    )
+  }
+
+  const handleDeleteTodo = () => {
+    dispatch(
+      deleteTodo({ _id })
+    )
+  }
 
   const priorityColor = (
     priority === 'None'
@@ -18,6 +33,8 @@ const Todo = ({todo}) => {
     ? lightBlue[300] : priority === 'Medium'
     ? amber[500] : deepOrange[800]
   )
+
+
 
   return (
     <Card sx={{ width: 265, height: 260, m: 4, boxShadow: 10, bgcolor: priorityColor }}>

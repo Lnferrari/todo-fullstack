@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { addTodo } from '../redux/todoSlice'
 import Calendar from 'react-calendar'
 import moment from 'moment'
 import { Button, Grid, Popover, TextField, FormControl } from '@mui/material'
@@ -46,7 +47,9 @@ const AddTodoForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch({ type: 'ADD_TODO', payload: newTodo })
+    dispatch(
+      addTodo(newTodo)
+    )
     setNewTodo(initialState)
   }
 

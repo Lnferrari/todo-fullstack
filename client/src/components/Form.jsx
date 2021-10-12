@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Resizer from "react-image-file-resizer";
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { signupUser, loginUser } from '../helpers/apiCalls';
 import Box from '@mui/material/Box'
@@ -13,6 +14,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { FormControl } from '@mui/material';
+import { setUser } from '../redux/userSlice';
 
 const initialState = {
   email: '',
@@ -22,6 +24,8 @@ const initialState = {
 const Form = ({formType}) => {
   const [ inputs, setInputs ] = useState(initialState)
   const [ showPassword, setShowPassword ] = useState(false)
+
+  const dispatch = useDispatch()
 
   let history = useHistory()
 
@@ -76,9 +80,9 @@ const Form = ({formType}) => {
       }
 
       if (!userApi.error) {
+        dispatch(setUser(userApi))
         history.push('/dashboard')
       }
-
     } catch (err) {
       console.log(err);
     }
