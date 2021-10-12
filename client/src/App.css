@@ -4,8 +4,13 @@
   box-sizing: border-box;
 }
 
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
 .App {
-  text-align: center;
+  width: 100%;
 }
 
 form {
@@ -34,3 +39,7 @@ form {
 /* input {
   outline: none;
 } */
+
+.calendar {
+  width: 260px;
+}
