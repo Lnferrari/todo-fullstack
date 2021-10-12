@@ -5,6 +5,7 @@ import cors from 'cors'
 import createError from 'http-errors'
 import usersRouter from './routes/usersRouter.js'
 import cloudinary from 'cloudinary'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 const PORT = 5000
@@ -20,6 +21,7 @@ cloudinary.v2.config({
 
 // EXPRESS MIDDLEWARE --------------------
 app.use(express.json({ limit: '1MB' }))
+app.use(cookieParser())
 app.use(cors({ origin: 'http://localhost:3000' }))
 
 

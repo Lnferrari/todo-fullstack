@@ -28,7 +28,15 @@ export const createUser = async (req, res, next) => {
       ...userData,
       avatar: uploadResponse.secure_url
     })
-    res.json(newUser)
+    const token = newUser.generateToken()
+    res
+      .cookie('token', token, {
+        expires: new Date(Date.now() + 172800000),
+        sameSite: 'None',
+        secure: true,
+        httpOnly: true
+      })
+      .json(newUser)
   } catch (err) {
     next(err)
   }
@@ -87,15 +95,34 @@ export const loginUser = async (req, res, next) => {
     if (!user) throw new createError(
       404,
       `Email not valid`
-    )
-    if (user.password !== password) 
-      throw new createError(
+    );
+    const pwIsValid = bcrypt.compareSync(password, user.password)
+    if (pwIsValid) next(
+      createError(
         404,
         `Password not valid`
       )
-    res.json(user)  
+    );
+    const token = user.generateToken();
+    res
+      .cookie('token', token, {
+        expires: new Date(Date.now() + 172800000),
+        sameSite: 'None',
+        secure: true,
+        httpOnly: true
+      })
+      .json(user)
   } catch (err) {
     next(err)
   }
 }
 
+export const verifyCookie = (req, res, next) => {
+  res.send( req.user )
+}
+
+export const logoutUser = (req, res, next) => {
+  res.clearCookie('token').json({
+    message: `Logged out successfully!`
+  })
+}
