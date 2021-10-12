@@ -3,7 +3,7 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Button from '@mui/material/Button'
-import Form from '../components/Form'
+import Form from '../components/registration/Form'
 
 const Registration = () => {
   const [ formType, setFormType ] = useState('signup')

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Resizer from "react-image-file-resizer";
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
-import { signupUser, loginUser } from '../helpers/apiCalls';
+import { signupUser, loginUser } from '../../helpers/apiCalls';
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
@@ -14,7 +14,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { FormControl } from '@mui/material';
-import { setUser } from '../redux/userSlice';
+import { setUser } from '../../redux/userSlice';
 
 const initialState = {
   email: '',

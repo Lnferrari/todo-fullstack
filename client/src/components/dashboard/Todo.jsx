@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { grey, lightBlue, amber, deepOrange } from '@mui/material/colors';
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
-import { deleteTodo, toggleTodo } from '../redux/todoSlice';
+import { deleteTodo, toggleTodo } from '../../redux/todoSlice';
 
 
 const Todo = ({todo}) => {

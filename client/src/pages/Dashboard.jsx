@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserTodos } from '../helpers/apiCalls'
-import AddTodoForm from '../components/AddTodoForm'
+import AddTodoForm from '../components/dashboard/AddTodoForm'
 import { Box, Grid, List } from '@mui/material'
-import Todo from '../components/Todo'
+import Todo from '../components/dashboard/Todo'
 import { getAllTodos } from '../redux/todoSlice'
 
 const Dashboard = () => {
