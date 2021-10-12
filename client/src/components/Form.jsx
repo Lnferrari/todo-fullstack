@@ -94,8 +94,8 @@ const Form = ({formType}) => {
         {
           formType === 'signup'
           ? <>
-            <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-              <label htmlFor="avatar">
+            <FormControl fullWidth sx={{ m: 1, textAlign: 'center' }} variant="standard">
+              <label htmlFor="avatar" sx={{ }}>
                 <img src={inputs.avatar || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sqhUFRHRSP73IW9-wcDMcQHaHa%26pid%3DApi&f=1'} alt="avatar" className='form-avatar' />
                   {!inputs.avatar && <p className='italic'>Choose an avatar</p>}
                 </label>
