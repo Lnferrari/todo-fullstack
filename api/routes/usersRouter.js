@@ -7,6 +7,7 @@ import {
   updateUser,
   deleteUser,
   logoutUser,
+  verifyCookie,
 } from '../controllers/usersControllers.js'
 import {
   getAllTodos,
@@ -26,6 +27,9 @@ router.route('/')
 
 router.route('/login')
   .post(loginUser)
+
+router.route('/auth')
+  .post(auth, verifyCookie)
 
 router.route('/:id')
   .get(auth, getUser)
