@@ -22,7 +22,10 @@ cloudinary.v2.config({
 // EXPRESS MIDDLEWARE --------------------
 app.use(express.json({ limit: '1MB' }))
 app.use(cookieParser())
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 
 
 // END POINTS --------------------
