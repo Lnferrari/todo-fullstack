@@ -29,3 +29,14 @@ export const loginUser = async (userData) => {
     return err.response.data
   }
 }
+
+export const getUserTodos = async (userId) => {
+  try {
+    const resApi = await (
+      await axios(`/users/${userId}/todos`)
+    ).data
+    return resApi
+  } catch (err) {
+    return err.response.data
+  }
+}
