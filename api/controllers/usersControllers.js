@@ -1,6 +1,7 @@
 import createError from 'http-errors'
 import User from '../models/User.js'
 import cloudinary from 'cloudinary'
+import bcrypt from 'bcryptjs'
 
 
 export const getAllUsers = async (req, res, next) => {
@@ -24,10 +25,11 @@ export const createUser = async (req, res, next) => {
     if (uploadResponse.error) {
       return new Error(`Ups! Something went wrong`)
     }
-    const newUser = await User.create({
+    let newUser = new User({
       ...userData,
       avatar: uploadResponse.secure_url
     })
+    newUser = await newUser.save()
     const token = newUser.generateToken()
     res
       .cookie('token', token, {
@@ -96,8 +98,11 @@ export const loginUser = async (req, res, next) => {
       404,
       `Email not valid`
     );
+    console.log('password ', password)
+    console.log('user.pw', user.password)
     const pwIsValid = bcrypt.compareSync(password, user.password)
-    if (pwIsValid) next(
+    console.log('password matched =>', pwIsValid)
+    if (!pwIsValid) next(
       createError(
         404,
         `Password not valid`
@@ -111,7 +116,7 @@ export const loginUser = async (req, res, next) => {
         secure: true,
         httpOnly: true
       })
-      .json(user)
+      .send(user)
   } catch (err) {
     next(err)
   }

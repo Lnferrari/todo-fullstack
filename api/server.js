@@ -6,16 +6,16 @@ import createError from 'http-errors'
 import usersRouter from './routes/usersRouter.js'
 import cloudinary from 'cloudinary'
 import cookieParser from 'cookie-parser'
+import config from './config/config.js'
 
 const app = express()
 const PORT = 5000
 
 // CONFIG -------------------------
-dotenv.config()
 cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: config.cloudinary.name,
+  api_key: config.cloudinary.key,
+  api_secret: config.cloudinary.secret,
   secure: true
 })
 
@@ -23,7 +23,7 @@ cloudinary.v2.config({
 app.use(express.json({ limit: '1MB' }))
 app.use(cookieParser())
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: config.frontendOrigin,
   credentials: true
 }))
 

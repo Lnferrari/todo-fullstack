@@ -1,12 +1,13 @@
 import User from "../models/User.js";
 import jwt from 'jsonwebtoken'
+import config from '../config/config.js'
 
 const auth = async (req, res, next) => {
 
   const token = req.cookies.token
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_TOKEN)
+    const decoded = jwt.verify(token, config.secretKey)
     const user = await User.findOne({
       _id: decoded._id,
       email: decoded.email

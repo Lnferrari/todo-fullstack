@@ -2,12 +2,13 @@ import mongoose from 'mongoose'
 import User from '../models/User.js'
 import Todo from '../models/Todo.js'
 import faker from 'faker'
+import config from '../config/config.js'
 
 let usersCreated = [];
 
 (async function () {
   // connect to the DB
-  mongoose.connect('mongodb://localhost:27017/todo-fullstack', {
+  mongoose.connect(config.mongooseUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -71,7 +72,8 @@ let usersCreated = [];
           title: faker.lorem.words(3),
           body: faker.lorem.sentence(12),
           deadline: faker.date.soon(faker.datatype.number(20)),
-          priority: faker.random.arrayElement(['None','Low','Medium', 'High'])
+          priority: faker.random.arrayElement(['None','Low','Medium', 'High']),
+          completed: faker.random.arrayElement([true, false])
         }
         const todo = new Todo(todoData)
         return todo.save()

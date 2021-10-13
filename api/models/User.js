@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import config from '../config/config.js'
 
-const JWT_TOKEN = process.env.JWT_TOKEN
 const {Schema, model} = mongoose
 
 const UserSchema = new Schema({
@@ -25,11 +26,21 @@ const UserSchema = new Schema({
   }
 })
 
+UserSchema.pre('save', function(next) {
+  const user = this
+  if (!user.isModified('password')) {
+    return next()
+  }
+  user.password = bcrypt.hashSync( user.password, 10 )
+  console.log('saved user with hashed pw =>', user)
+  next()
+})
+
 UserSchema.methods.generateToken = function () {
   const user = this
   const token = jwt.sign(
     {_id: user._id, email: user.email},
-    JWT_TOKEN,
+    config.secretKey,
     {expiresIn: '1d'}
   )
   return token
