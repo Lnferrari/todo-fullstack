@@ -15,6 +15,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { FormControl } from '@mui/material';
 import { setUser } from '../../redux/userSlice';
+import { setTodos } from '../../redux/todoSlice'
+import { getUserTodos } from '../../helpers/apiCalls';
+
 
 const initialState = {
   email: '',
@@ -81,7 +84,11 @@ const Form = ({formType}) => {
 
       if (!userApi.error) {
         dispatch(setUser(userApi))
-        history.push('/dashboard')
+        const todosApi = await getUserTodos(userApi._id)
+        if (!todosApi.error) {
+          dispatch(setTodos(todosApi))
+          history.push('/dashboard')
+        }
       }
     } catch (err) {
       console.log(err);
