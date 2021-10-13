@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addTodo } from '../../redux/todoSlice'
 import Calendar from 'react-calendar'
 import moment from 'moment'
 import { Button, Grid, Popover, TextField, FormControl } from '@mui/material'
 import EventIcon from '@mui/icons-material/Event';
 import { Box } from '@mui/system'
+import { addTodoApi } from '../../helpers/apiCalls'
+import Clock from './Clock'
 
 const initialState = {
   title: '',
+  body: '',
   deadline: '',
 }
 
@@ -16,6 +19,7 @@ const AddTodoForm = () => {
   const [ newTodo, setNewTodo ] = useState(initialState)
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
 
@@ -45,11 +49,18 @@ const AddTodoForm = () => {
     setAnchorEl(null)
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    dispatch(
-      addTodo(newTodo)
-    )
+    if (newTodo.title) {
+      const newTodoApi = await addTodoApi(
+        user._id,
+        newTodo
+      )
+      if (!newTodoApi.error)
+        dispatch(
+          addTodo( newTodoApi )
+        )
+    }
     setNewTodo(initialState)
   }
 
@@ -68,8 +79,8 @@ const AddTodoForm = () => {
               value={newTodo.title}
               onChange={handleChange}
           />
-          <Button  size='normal' aria-describedby={id} variant="contained" onClick={handleClick}>
-            {newTodo.deadline || <><EventIcon fontSize="small" sx={{ marginRight: 1 }}/> <span>Add Date</span></>}
+          <Button size='normal' aria-describedby={id} variant="contained" onClick={handleClick}>
+            {newTodo.deadline || <><EventIcon fontSize="small" sx={{ marginRight: 1 }}/> <span>DUE DATE</span></>}
           </Button>
           <Popover
               id={id}
@@ -84,7 +95,19 @@ const AddTodoForm = () => {
             <Calendar onChange={handleCalendar} className='calendar'/>
           </Popover>
         </Grid>
-        <Button type="submit" variant='contained'>ADD TASK</Button>
+        <Grid sx={{ display: 'flex', flexWrap: 'wrap', mb: 2 }}>
+          {/* <TextField
+            sx={{ width: 500, bgcolor: 'white'}}
+            id="multiline-flexible"
+            label="Description..."
+            name="body"
+            multiline
+            maxRows={4}
+            value={newTodo.body}
+            onChange={handleChange}
+          /> */}
+          <Button sx={{ my: 1 }} size='large' color="success" type="submit" variant='contained'>ADD TASK</Button>
+        </Grid>
       </Box>
     </Grid>
   )
