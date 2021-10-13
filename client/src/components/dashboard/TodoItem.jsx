@@ -28,20 +28,36 @@ const TodoItem = ({ _id, priority, title, body, deadline, completed, createdAt }
 
   const dispatch = useDispatch()
 
-  const handlePriorityTodo = (e) => {
+  const handlePriorityTodo = async (e) => {
+    const resApi = await updateTodoApi(user._id, _id, { priority: e.target.value })
     dispatch(
       changePriority({ _id, priority: e.target.value})
     )
   }
 
-  const handleToggleTodo = () => {
-    dispatch(
-      toggleTodo({ _id, completed: !completed })
+  const handleToggleTodo = async (e) => {
+    console.log('event toggle', e)
+    const resApi = await updateTodoApi(
+      user._id,
+      _id,
+      { completed: !completed }
     )
+    if (!resApi.error) {
+      dispatch(
+        toggleTodo({ _id, completed: !completed })
+      )
+    }
+    
   }
 
-  const handleDeleteTodo = () => {
-    dispatch(deleteTodo({_id: _id}))
+  const handleDeleteTodo = async () => {
+    const resApi = await deleteTodoApi(
+      user._id, _id
+    )
+    if (!resApi.error) {
+      dispatch(deleteTodo({ _id }))
+    }
+    
   }
 
   // if todo is completed => green
@@ -51,7 +67,7 @@ const TodoItem = ({ _id, priority, title, body, deadline, completed, createdAt }
     ? green[400] : priority === 'High'
     ? red[400] : priority === 'Medium'
     ? amber[300] : priority === 'Low'
-    ? lightBlue[200] : grey[200]
+    ? lightBlue[200] : grey[100]
   )
 
 
@@ -77,11 +93,11 @@ const TodoItem = ({ _id, priority, title, body, deadline, completed, createdAt }
           {
             !completed
             ? <DoneAllIcon sx={{ cursor: 'pointer' }}
-                value="complete"
+                name="completed"
                 onClick={handleToggleTodo}
               />
             : <RemoveDoneIcon sx={{ cursor: 'pointer' }}
-              value="complete"
+              name="completed"
               onClick={handleToggleTodo}
               />
           }
