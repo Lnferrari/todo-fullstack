@@ -6,7 +6,7 @@ export const getAllTodos = async (req, res, next) => {
   try {
     const todos = await Todo.find({
       userId: req.params.id
-    })
+    }).sort('completed').sort('deadline')
     res.json(todos)
   } catch (err) {
     next(err)
