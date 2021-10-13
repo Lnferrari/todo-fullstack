@@ -15,10 +15,10 @@ const Registration = () => {
           marginTop: 12,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
-        <ButtonGroup disableElevation>
+        <ButtonGroup sx={{ display: 'flex', alignItems: 'center'}} disableElevation>
           <Button
             fullWidth
             variant={`${formType === 'signup' ? 'contained' : 'outlined'}`}

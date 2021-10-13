@@ -98,8 +98,6 @@ export const loginUser = async (req, res, next) => {
       404,
       `Email not valid`
     );
-    console.log('password ', password)
-    console.log('user.pw', user.password)
     const pwIsValid = bcrypt.compareSync(password, user.password)
     console.log('password matched =>', pwIsValid)
     if (!pwIsValid) next(
