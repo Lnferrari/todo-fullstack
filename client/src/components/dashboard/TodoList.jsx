@@ -10,16 +10,16 @@ const TodoList = () => {
   const user = useSelector(state => state.user)
   const todos = useSelector(state => state.todos)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const todosApi = await getUserTodos(user._id)
-      console.log('todosAPI =>' , todosApi)
-      dispatch(
-        setTodos(todosApi)
-      )
-    }
-    fetchData()
-  }, [dispatch])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const todosApi = await getUserTodos(user._id)
+  //     console.log('todosAPI =>' , todosApi)
+  //     dispatch(
+  //       setTodos(todosApi)
+  //     )
+  //   }
+  //   fetchData()
+  // }, [dispatch])
 
 
   return (
