@@ -8,10 +8,13 @@ export const userSlice = createSlice({
       for (let key in action.payload) {
         state[key] = action.payload[key]
       }
+    },
+    userLogout: (state, action) => {
+      return {}
     }
   }
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, userLogout } = userSlice.actions
 
 export default userSlice.reducer

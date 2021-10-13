@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { Avatar, Typography } from '@mui/material'
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
@@ -18,44 +19,73 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { grey } from '@mui/material/colors';
+import { logoutUser } from '../../helpers/apiCalls';
+import { setUser, userLogout } from '../../redux/userSlice';
+import { setTodos } from '../../redux/todoSlice';
+import EventIcon from '@mui/icons-material/Event';
 
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const todos = useSelector(state => state.todos)
+
+  let todos = useSelector(state => state.todos)
   const completedTodos = useSelector(state =>
     state.todos.filter(todo =>todo.completed === true)
   )
   const notFinishedTodos = useSelector(state =>
     state.todos.filter(todo =>todo.completed === false)
   )
-  const user = useSelector(state => state.user)
-
+  let user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+  
+  let history = useHistory()
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const handleLogOut = async () => {
+    const loggedOutUser = await logoutUser()
+    dispatch(
+      userLogout({}),
+      setTodos({})
+    )
+    if (!loggedOutUser.error) {
+      history.push('/')
+    }
+  }
 
   return (
     <React.Fragment>
       <Avatar
         alt={`${user.username} avatar`}
         src={user.avatar}
-        sx={{ width: 100, height: 100, m: 2 }}
+        sx={{ width: 100, height: 100, m: 2, border: 1, boxShadow: 5 }}
       />
-      <Typography variant="h5" component="div">
+      <Typography sx={{ fontWeight: 'bold', color: 'white' }} variant="h5" component="div">
         {user.username}
       </Typography>
+      <Typography sx={{ display: 'flex', alignItems: 'center', color: 'white' }}>
+        <LogoutIcon sx={{ mx: 1 }} onClick={handleLogOut} />
+        Log Out
+      </Typography>
       <List
-      sx={{ width: '100%', color: grey[50] }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
+        sx={{ width: '100%', color: grey[50], mt: 2 }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
       >
         <ListItemButton>
           <ListItemIcon>
             <HomeIcon sx={{ color: grey[50] }} />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemIcon>
+            <EventIcon sx={{ color: grey[50] }} />
+          </ListItemIcon>
+          <ListItemText primary="Today" />
         </ListItemButton>
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>
