@@ -16,7 +16,7 @@ export const getAllTodos = async (req, res, next) => {
 export const createTodo = async (req, res, next) => {
   try {
     const todo = await Todo.create(req.body)
-    const populatedTodo = await Todo.find({
+    const populatedTodo = await Todo.findOne({
       _id: todo._id
     }).populate('userId')
     res.json(populatedTodo)
