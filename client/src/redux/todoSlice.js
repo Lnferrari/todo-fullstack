@@ -20,20 +20,25 @@ export const todoSlice = createSlice({
         : item
       )
     },
+    changePriority: (state, action) => {
+      console.log('ACTIOOOOON ->', action)
+      const indexTodo = state.findIndex(
+        item => item._id === action.payload._id
+      )
+      state[indexTodo].priority = action.payload.priority
+    },
     deleteTodo: (state, action) => {
-      state.filter(todo =>
+      console.log('deleting...', action.payload)
+      return state.filter(todo =>
         todo._id !== action.payload._id
       )
     },
-    getAllTodos: (state, action) => {
-      action.payload.forEach(todo =>
-        state.push(todo)
-      )
+    setTodos: (state, action) => {
+      return action.payload
     }
-
   }
 })
 
-export const { addTodo, toggleTodo, editTodo, deleteTodo, getAllTodos } = todoSlice.actions
+export const { addTodo, toggleTodo, editTodo, changePriority, deleteTodo, setTodos } = todoSlice.actions
 
 export default todoSlice.reducer
