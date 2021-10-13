@@ -30,7 +30,10 @@ router.route('/login')
 
 router.route('/auth')
   .post(auth, verifyCookie)
-
+  
+router.route('/logout')
+  .get(logoutUser)
+  
 router.route('/:id')
   .get(auth, getUser)
   .patch(auth, updateUser)
@@ -45,7 +48,5 @@ router.route('/:id/todos/:todoId')
   .patch(auth, updateTodo)
   .delete(auth, deleteTodo)
 
-router.route('/logout')
-  .get(logoutUser)
 
 export default router;
